@@ -1,0 +1,29 @@
+.navbar {
+    width: 100%;
+    background-color: #333; /* Adjust the background color as needed */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; /* Adjusts the postion*/
+}
+
+.navbar-brand {
+    font-size: 24px; /* Adjusts the font size */
+}
+
+.navbar-links {
+    display: flex;
+    gap: 20px; /* Adjusts the gap between links */
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px; /* Adjust the font size as needed */
+}

@@ -1,0 +1,14 @@
+body {
+    background-color: rgb(37, 36, 36)
+}
+
+.pokemon-grid{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Adjust the gap between cards as needed */
+    padding: 20px;
+}
+
