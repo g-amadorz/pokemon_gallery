@@ -24,7 +24,7 @@ class PokemonListView(generics.ListAPIView):
 @api_view(["GET"])
 def getRandomPokemon(request):
     queryset = Pokemon.objects.all()
-    randomPokemon = random.sample(list(queryset), k=random.randint(5, 8))
+    randomPokemon = random.sample(list(queryset), k=6)
 
     serializer = PokemonSerializer(randomPokemon, many=True)
 

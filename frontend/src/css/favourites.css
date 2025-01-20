@@ -1,8 +1,13 @@
 .favorites-empty {
+    padding-top: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-size: 1.5rem;
+    color: #f3efef;
+    font-weight: 500;
+    flex-direction: column;
     text-align: center;
-    padding: 4rem 2rem;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    margin: 2rem auto;
-    max-width: 600px;
   }
