@@ -10,12 +10,15 @@ function View(){
 
     useEffect(() => {
         const fetchPokemon = async () => {
+            try {
             const response = await fetch('http://127.0.0.1:8000/pokemons/all/random')
             const data = await response.json()
             setPokemon(data)
-            };
-
-
+            } catch (err) {
+                setError(err)
+                console.log("something went wrong")
+            }
+        };
             fetchPokemon()
                 },  
                     []);

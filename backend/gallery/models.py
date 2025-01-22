@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -12,3 +13,14 @@ class Pokemon(models.Model):
 
     def __str__(self):
         return self.name
+    
+class FavouritePokemon(models.model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    
+
+
+class PokemonData(models.model):
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
+    bio = models.CharField(max_length=300)
+    ability = models.CharField(max_length=30)
+    region = models.CharField(max_length=12)
