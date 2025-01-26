@@ -1,4 +1,5 @@
-from django.db import models  
+from django.db import models
+from django.contrib.auth.models import User  
 
 # Create your models here.
 
@@ -13,11 +14,12 @@ class Pokemon(models.Model):
     def __str__(self):
         return self.name
     
-class User(models.Model):
-    id = models.IntegerField(primary_key=True)
-    username = models.CharField(max_length=30)
-    password = models.CharField(max_length=20)
-    favourites = models.ManyToManyField(Pokemon, related_name="favourite")
+# class User(models.Model):
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     pokemon_likes = models.ManyToManyField(Pokemon, on_delete=models.CASCADE)
+    
+#     def __str__(self):
+#         return self.user
 
 
 class PokemonData(models.Model):
@@ -25,3 +27,6 @@ class PokemonData(models.Model):
     bio = models.CharField(max_length=300)
     ability = models.CharField(max_length=30)
     region = models.CharField(max_length=12)
+        
+    def __str__(self):
+        return self.pokemon

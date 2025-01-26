@@ -11,7 +11,7 @@ function View(){
     useEffect(() => {
         const fetchPokemon = async () => {
             try {
-            const response = await fetch('http://127.0.0.1:8000/pokemons/all/random')
+            const response = await fetch('http://127.0.0.1:8000/pokemons/all/random/?count=7')
             const data = await response.json()
             setPokemon(data)
             } catch (err) {
