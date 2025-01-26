@@ -14,13 +14,8 @@ class Pokemon(models.Model):
     def __str__(self):
         return self.name
     
-# class User(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     pokemon_likes = models.ManyToManyField(Pokemon, on_delete=models.CASCADE)
-    
-#     def __str__(self):
-#         return self.user
-
+class User(models.Model):
+    pass
 
 class PokemonData(models.Model):
     pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
