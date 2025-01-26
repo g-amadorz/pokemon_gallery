@@ -8,7 +8,6 @@ from rest_framework.response import Response
 import random
 from django.http import HttpResponse
 
-
 class PokemonListCreate(generics.ListCreateAPIView):
     queryset = Pokemon.objects.all()
     serializer_class = PokemonSerializer
@@ -22,15 +21,16 @@ class PokemonListView(generics.ListAPIView):
     queryset = Pokemon.objects.all()
     serializer_class = PokemonSerializer
 
-@api_view(["GET"])
-def getRandomPokemon(request):
-    count = int(request.GET.get('count', 5))
-    queryset = Pokemon.objects.all()
-    randomPokemon = random.sample(list(queryset), count)
+class RandomPokemon(APIView):
+    def get(self, request):
+        count = int(request.GET.get('count', 5))
+        queryset = Pokemon.objects.all()
+        randomPokemon = random.sample(list(queryset), count)
 
-    serializer = PokemonSerializer(randomPokemon, many=True)
+        classSerializer = PokemonSerializer(randomPokemon, many=True)
 
-    return Response(serializer.data)
+        return Response(classSerializer.data)
+    
 
 
 
@@ -39,3 +39,15 @@ def getRandomPokemon(request):
 # def createUser(request):
 #     queryset = User.objects.all
 #     serializer_class = UserSerializer()
+
+
+
+# @api_view(["GET"])
+# def getRandomPokemon(request):
+#     count = int(request.GET.get('count', 5))
+#     queryset = Pokemon.objects.all()
+#     randomPokemon = random.sample(list(queryset), count)
+
+#     serializer = PokemonSerializer(randomPokemon, many=True)
+
+#     return Response(serializer.data)

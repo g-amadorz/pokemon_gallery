@@ -12,5 +12,5 @@ urlpatterns = [
     path('create/', views.PokemonListCreate.as_view(), name='create'),
     path('pokemons/<int:pk>/', views.PokemonListRetrieveUpdateDestroy.as_view(), name='pokemon'),
     path('pokemons/all/', views.PokemonListView.as_view(), name='pp'),
-    path('pokemons/all/random/', views.getRandomPokemon, name="random")
+    path('pokemons/all/random/', views.RandomPokemon.as_view(), name="random")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
