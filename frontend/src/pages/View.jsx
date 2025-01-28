@@ -8,15 +8,15 @@ function View(){
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    const url = 'http://127.0.0.1:8000/pokemons/types/?type=Fire'
+    const url = 'http://127.0.0.1:8000/pokemons/types/?type=Grass'
+    const fire = 'http://127.0.0.1:8000/pokemons/types/?type=Water'
     const randoms = 'http://127.0.0.1:8000/pokemons/all/random/'
 
-    const fire = "Fire"
 
     useEffect(() => {
         const fetchPokemon = async () => {
             try {
-            const response = await fetch(url)
+            const response = await fetch(fire)
             const data = await response.json()
             setPokemon(data)
             } catch (err) {

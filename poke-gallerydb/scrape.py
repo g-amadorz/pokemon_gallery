@@ -16,9 +16,24 @@ class Pokemon:
             'name': self.name,
             'types': self.types,
             'sprite': self.sprite
-            }
+        }
+    
+class PokemonBio:
+    def __init__(self, pokemon, bio, ability, region):
+        self.pokemon = pokemon
+        self.bio = bio
+        self.ability = ability
+        self.region = region
+    
+    def toDict(self):
+        return {
+            'pokemon': self.pokemon,
+            'name': self.bio,
+            'ability': self.ability,
+            'region': self.region
+        }
 
-PokemonsData = []
+PokemonBios = []
 
 #URL to scrape: BeautifulSoup setup
 url = 'https://pokemondb.net/pokedex/game/firered-leafgreen'
@@ -26,62 +41,91 @@ response = requests.get(url)
 soup = bs(response.text, 'lxml')
 rows = soup.find_all('div', class_='infocard')
 
-num = 1
+
 
 #Loops over each row in the table
-for row in rows:
+def getPokemon():
+    num = 1
+    PokemonsData = []
+    for row in rows:
 
-    pokemon_data_cell = row.find('span', class_='infocard-lg-data text-muted')
+        pokemon_data_cell = row.find('span', class_='infocard-lg-data text-muted')
 
-    pokemon_image_cell = row.find('span', class_='infocard-lg-img')
+        pokemon_image_cell = row.find('span', class_='infocard-lg-img')
 
-    name = pokemon_data_cell.find('a', class_='ent-name').text
+        name = pokemon_data_cell.find('a', class_='ent-name').text
 
-    #num = pokemon_data_cell.find('small').text.replace('#', '') #Removes the # from the id
+        #num = pokemon_data_cell.find('small').text.replace('#', '') #Removes the # from the id
 
-    type_cell = pokemon_data_cell.find_all('a', class_='itype')
+        type_cell = pokemon_data_cell.find_all('a', class_='itype')
 
-    sprite = pokemon_image_cell.find('a').find('img')['src']
+        sprite = pokemon_image_cell.find('a').find('img')['src']
 
-    if len(type_cell) == 1:
-        types = [type_cell[0].text]
-    else:
-        types = [type_cell[0].text, type_cell[1].text]
+        if len(type_cell) == 1:
+            types = [type_cell[0].text]
+        else:
+            types = [type_cell[0].text, type_cell[1].text]
 
-    PokemonsData.append(Pokemon(num, name, types, sprite).toDict())
+        PokemonsData.append(Pokemon(num, name, types, sprite).toDict())
 
-    num += 1
+        num += 1
+    return PokemonsData
+
+p = getPokemon()
+
+bio_rows = soup.find_all('table', class_='vitals-table')
+
+def getPokemonBio():
+    for pokemon in p:
+        url = f"https://pokemondb.net/pokedex/{pokemon}"
+
+        region = "Kanto"
+
+
+        PokemonBios.append(PokemonBio().toDict())
+
+
+    return PokemonBios
+
+
+
+
+
+# Get data
+
+getPokemon()
+getPokemonBio
 
 #print(PokemonsData)
 
-try:
-    connection = psycopg2.connect(
-        dbname="pokedb",
-        user="postgres",
-        password="docker",
-        host="localhost",
-        port="5432"
-    )
-    cursor = connection.cursor()
+# try:
+#     connection = psycopg2.connect(
+#         dbname="pokedb",
+#         user="postgres",
+#         password="docker",
+#         host="localhost",
+#         port="5432"
+#     )
+#     cursor = connection.cursor()
 
-    # Insert data into table
-    insert_query = ''' 
-    INSERT INTO gallery_pokemon (num, name, type, image) VALUES (%s, %s, %s, %s)
-    '''
+#     # Insert data into table
+#     insert_query = ''' 
+#     INSERT INTO gallery_pokemon (num, name, type, image) VALUES (%s, %s, %s, %s)
+#     '''
 
-    for pokemon in PokemonsData:
-        types_str = ', '.join(pokemon['types'])
-        cursor.execute(insert_query, (pokemon['num'], pokemon['name'], types_str, pokemon['sprite']))
+#     for pokemon in PokemonsData:
+#         types_str = ', '.join(pokemon['types'])
+#         cursor.execute(insert_query, (pokemon['num'], pokemon['name'], types_str, pokemon['sprite']))
     
-    connection.commit()
-    print("Data inserted successfully!")
+#     connection.commit()
+#     print("Data inserted successfully!")
 
-except Exception as error:
-    print(f"Error: {error}")
+# except Exception as error:
+#     print(f"Error: {error}")
 
-finally:
-    cursor.close()
-    connection.close()
+# finally:
+#     cursor.close()
+#     connection.close()
 
 
 

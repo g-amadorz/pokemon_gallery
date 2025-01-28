@@ -18,7 +18,7 @@ class User(models.Model):
     pass
 
 class PokemonData(models.Model):
-    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)  
     bio = models.CharField(max_length=300)
     ability = models.CharField(max_length=30)
     region = models.CharField(max_length=12)
