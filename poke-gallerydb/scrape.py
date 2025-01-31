@@ -73,28 +73,6 @@ def getPokemon():
 
 p = getPokemon()
 
-bio_rows = soup.find_all('table', class_='vitals-table')
-
-def getPokemonBio():
-    for pokemon in p:
-        url = f"https://pokemondb.net/pokedex/{pokemon}"
-
-        region = "Kanto"
-
-
-        PokemonBios.append(PokemonBio().toDict())
-
-
-    return PokemonBios
-
-
-
-
-
-# Get data
-
-getPokemon()
-getPokemonBio
 
 #print(PokemonsData)
 
