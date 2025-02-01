@@ -6,7 +6,6 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register(r'pokemons', views.PokemonListCreate)
-router.register(r'pokemons', views.PokemonListView)
 
 urlpatterns = [
     path('create/', views.PokemonListCreate.as_view(), name='create'),

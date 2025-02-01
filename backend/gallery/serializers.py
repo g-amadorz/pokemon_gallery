@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Pokemon, PokemonData, User
 
+
 class PokemonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pokemon
