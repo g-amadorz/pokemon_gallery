@@ -48,23 +48,17 @@ class SortByPokemonType(viewsets.ViewSet):
         
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-<<<<<<< HEAD
 
-
-    
-=======
-        
->>>>>>> a257da82225c99e0c9c7f3df46ea4d6552b6faac
-
-
-class PickPokemon(viewsets.ViewSet):
-    def show(self, request, *args, **kwargs):
+class getPokemonInfo(viewsets.ViewSet):
+    def list(self, request, *args, **kwargs):
         try:
             pokemonQuery = str(request.GET.get('pokemon', 'Mew'))
 
-            pokemonKey = Pokemon.objects.get(name=pokemonQuery).id
+            pokemon = Pokemon.objects.get(name=pokemonQuery)
 
-            pokemonInfo = PokemonData.objects.get(pokemon_id=pokemonKey)
+            pokemonKey = pokemon.num
+
+            pokemonInfo = PokemonData.objects.get(pokemon=pokemonKey)
 
             classSerializer = PokemonDataSerializer(pokemonInfo)
 

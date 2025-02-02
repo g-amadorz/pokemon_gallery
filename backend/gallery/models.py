@@ -18,7 +18,7 @@ class User(models.Model):
     pass
 
 class PokemonData(models.Model):
-    pokemon_id = models.ForeignKey(Pokemon, on_delete=models.CASCADE)  
+    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE)  
     species = models.CharField(max_length=50, default='Blank Pokemon')
     bio = models.CharField(max_length=300, default='Nice Pokemon')
     ability = models.CharField(max_length=50)
