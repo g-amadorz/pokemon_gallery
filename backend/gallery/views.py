@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework import generics, viewsets, status
 from rest_framework.views import APIView
-from .models import Pokemon, User
-from .serializers import PokemonSerializer, UserSerializer
+from .models import Pokemon, User, PokemonData
+from .serializers import PokemonSerializer, UserSerializer, PokemonDataSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import random
@@ -48,27 +48,27 @@ class SortByPokemonType(viewsets.ViewSet):
         
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
-
-class GetPokemonData(viewsets.ViewSet):
-    pass
-    
+        
 
 
+class PickPokemon(viewsets.ViewSet):
+    def show(self, request, *args, **kwargs):
+        try:
+            pokemonQuery = str(request.GET.get('pokemon', 'Mew'))
+
+            pokemonKey = Pokemon.objects.get(name=pokemonQuery).id
+
+            pokemonInfo = PokemonData.objects.get(pokemon_id=pokemonKey)
+
+            classSerializer = PokemonDataSerializer(pokemonInfo)
+
+            return Response(classSerializer.data)
+
+        except Exception as e:
+            return Response(f'Error {e}')
 
 
 # @api_view(["POST"])
 # def createUser(request):
 #     queryset = User.objects.all
 #     serializer_class = UserSerializer()
-
-
-
-# @api_view(["GET"])
-# def getRandomPokemon(request):
-#     count = int(request.GET.get('count', 5))
-#     queryset = Pokemon.objects.all()
-#     randomPokemon = random.sample(list(queryset), count)
-
-#     serializer = PokemonSerializer(randomPokemon, many=True)
-
-#     return Response(serializer.data)
