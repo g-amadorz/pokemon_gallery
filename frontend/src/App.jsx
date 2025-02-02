@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import './css/App.css';
 import NavBar from './components/NavBar';
+import NewNavBar from './components/NewNavBar';
 import Favourites from './pages/favourites';
 import View from './pages/view';
 
