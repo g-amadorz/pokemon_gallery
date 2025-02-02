@@ -19,9 +19,9 @@ class User(models.Model):
 
 class PokemonData(models.Model):
     pokemon_id = models.ForeignKey(Pokemon, on_delete=models.CASCADE)  
-    species = models.CharField(max_length=50, default='Pokemon')
-    ability = models.CharField(max_length=30)
-    bio = models.CharField(max_length=300)
+    species = models.CharField(max_length=50, default='Blank Pokemon')
+    bio = models.CharField(max_length=300, default='Nice Pokemon')
+    ability = models.CharField(max_length=50)
     region = models.CharField(max_length=12)
         
     def __str__(self):

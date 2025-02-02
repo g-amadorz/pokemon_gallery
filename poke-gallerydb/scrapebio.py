@@ -6,8 +6,8 @@ import threading, time
 p = getPokemon()
 
 class PokemonBio:
-    def __init__(self, pokemon_num, species, bio, ability, region):
-        self.pokemon_num = pokemon_num
+    def __init__(self, pokemon_id, species, bio, ability, region):
+        self.pokemon_id = pokemon_id
         self.species = species
         self.bio = bio
         self.ability = ability
@@ -15,7 +15,7 @@ class PokemonBio:
     
     def toDict(self):
         return {
-            'pokemon_num': self.pokemon_num,
+            'pokemon_id': self.pokemon_id,
             'species': self.species,
             'bio': self.bio,
             'ability': self.ability,
@@ -74,12 +74,15 @@ def fetchPokemonBio(pokemon, PokemonBios, lock):
     bio_cell = soup.find('main', id='main').find_all('table', class_='vitals-table', limit=14)[4:14]
     bio_text = filterTags(bio_cell)
 
+    if pokemonName == "Tauros":
+        bio_text = "When it targets an enemy, it charges furiously while whipping its body with its long tails"
+    
+
     print(pokemonName)
 
     #Region
     region = 'Kanto'
     with lock:
-        print(species_text)
         PokemonBios.append(PokemonBio(pokemonNum, species_text, bio_text, ability_text, region).toDict())
 
 
@@ -100,25 +103,51 @@ def getPokemonBio():
 
     return PokemonBios
 
+# url = f"https://pokemondb.net/pokedex/tauros"
+# response = requests.get(url)
+# soup = bs(response.text, 'lxml')
 
 
-url = f"https://pokemondb.net/pokedex/charizard"
-response = requests.get(url)
-soup = bs(response.text, 'lxml')
-
-
-bio_cell = soup.find('main', id='main').find_all('table', class_='vitals-table', limit=14)[4:14]
+# bio_cell = soup.find('main', id='main').find_all('table', class_='vitals-table', limit=14)[4:14]
 
 def filterTags(tags):
     for tag in tags:
-        text = tag.find_all("td", class_='cell-med-text')[7:8]
+        text = tag.find_all('td', class_='cell-med-text')[7:8]
         if text:
             return text[-1].text
 
+bioData = getPokemonBio()
 
-#print(bio_cell)
+try:
+    connection = psycopg2.connect(
+        dbname="pokedb",
+        user="postgres",
+        password="docker",
+        host="localhost",
+        port="5432"
+    )
+    cursor = connection.cursor()
 
-print(getPokemonBio())
+    # Insert data into table
+    insert_query = ''' 
+    INSERT INTO gallery_pokemondata (pokemon_id, species, bio, ability, region) VALUES (%s, %s, %s, %s, %s)
+    '''
+
+    for pokemon in bioData:
+        abilities_str = ', '.join(pokemon['ability'])
+        cursor.execute(insert_query, (pokemon['pokemon_id'], pokemon['species'], pokemon['bio'], abilities_str, pokemon['region']))
+    
+    connection.commit()
+    print("Data inserted successfully")
+
+except Exception as error:
+    print(f"Error: {error}")
+
+finally:
+    cursor.close()
+    connection.close()
+
+
 
 
 
