@@ -42,13 +42,33 @@
 
 .pokemon-card .overlay .name-text {
     font-size: relative; /* Adjust the font size as needed */
-    text-align: center;
-    padding-bottom: 80px;
+    font-family: 'VT323', monospace;
+    text-shadow:
+        0 0 5px rgb(255, 255, 255   ), /* Glow effect */
+        0 0 10px rgb(34,34, 36);
+    text-align: relative;
+    color: red;
+    animation: flicker 0.1s infinite alternate
 }
 
 .pokemon-card .overlay .type-text {
-    font-size: 16px; /* Adjust the font size as needed */
-    text-align: center;
+    font-size: 14px; /* Adjust the font size as needed */
+    text-align: relative;
+    color: #000;
+}
+
+.pokedex-card .overlay .type {
+    font-family: 'VT323', monospace; /* Use a retro digital font */
+    font-size: 48px; /* Larger size for pixelated effect */
+    color: #00ff00; /* Green color, like old digital displays */
+    text-shadow:
+        0 0 5px #00ff00, /* Glow effect */
+        0 0 10px #00ff00;
+    background-color: #000; /* Black background */
+    padding: 10px 20px;
+    border: 2px solid #00ff00; /* Green border */
+    display: inline-block;
+    animation: flicker 0.1s infinite alternate; /* Optional: Add a flickering animation */
 }
 
 .pokemon-card .opaque-button {

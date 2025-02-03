@@ -10,24 +10,21 @@ function NavBar() {
 
     return (
         <nav className="navbar">
-            <div className="navbar-brand">
-                <Link to='/'>Poke-Gallery</Link>
-            </div>
             <div className="navbar-links">
                 <div className="dropdown">
                     <button className="dropdown-toggle" onClick={toggleMenu}>
-                        Pokemon
+                        Pokémon
                     </button>
                     {isOpen && (
                         <ul className="dropdown-menu">
                             <li>
-                                <Link to='/'>Pokemon List</Link>
+                                <Link to='/' className="dropdown-link">Pokemon List</Link>
                             </li>
                             <li>
-                                <Link to='/pokemon/types'>  Pokemon Types</Link>
+                                <Link to='/pokemon/types' className="dropdown-link">Pokémon Types</Link>
                             </li>
                             <li>
-                                <Link to='/pokemon/abilities'>Pokemon Abilities</Link>
+                                <Link to='/pokemon/abilities' className="dropdown-link">Pokemon Abilities</Link>
                             </li>
                         </ul>
                     )}

@@ -10,13 +10,13 @@ function View(){
 
     const url = 'http://127.0.0.1:8000/pokemons/types/?type=Grass'
     const fire = 'http://127.0.0.1:8000/pokemons/types/?type=Water'
-    const randoms = 'http://127.0.0.1:8000/pokemons/all/random/'
+    const randoms = 'http://127.0.0.1:8000/pokemons/all/random/?count=35'
 
 
     useEffect(() => {
         const fetchPokemon = async () => {
             try {
-            const response = await fetch(fire)
+            const response = await fetch(randoms)
             const data = await response.json()
             setPokemon(data)
             } catch (err) {
