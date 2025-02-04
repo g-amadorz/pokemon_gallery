@@ -13,6 +13,7 @@ function App() {
         <Routes>
           <Route path ="/" element={<View />}/>
           <Route path ="/favourites" element={<Favourites />}/>
+          <Route path=""/>
         </Routes>
       </main>
     </div>

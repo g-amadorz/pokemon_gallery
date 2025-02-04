@@ -1,10 +1,12 @@
 import "../css/PokemonCard.css";
+import { Link } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 function PokemonCard({pokemon}) {
-    
+    const {pokemonName} = useParams(pokemon.name);
     
     function onLike(){
-        alert("clicked")
+        alert("Clicked!")
     }
 
     return (
@@ -14,13 +16,13 @@ function PokemonCard({pokemon}) {
             </div>
             <div className="overlay">
                 <div className="name-text">
-                    {pokemon.name}
+                    <Link to={`/pokemons/${pokemon.name.toLowerCase()}`}>{pokemon.name}</Link>
                     <div className="type-text">
                         {pokemon.type}
                     </div>
                         <div className="like-button">
                             <button className='opaque-button' onClick={onLike}>
-                                ♥
+                                Like
                             </button>
                         </div>
                 </div>
