@@ -29,7 +29,7 @@ class RandomPokemon(APIView):
 
         random_pks = random.sample(list(all_pks), count)
 
-        randomPokemon = Pokemon.objects.filter(pk__in=random_pks)
+        randomPokemon = Pokemon.objects.filter(pk__in=random_pks).order_by('?')
 
         classSerializer = PokemonSerializer(randomPokemon, many=True)
 
@@ -39,7 +39,7 @@ class SortByPokemonType(viewsets.ViewSet):
     def list(self, request, *args, **kwargs):
         try:
             type = str(request.GET.get('type', 'Psychic'))
-            
+
             queryset = Pokemon.objects.filter(type__icontains=type)
 
             classSerializer = PokemonSerializer(queryset, many=True)

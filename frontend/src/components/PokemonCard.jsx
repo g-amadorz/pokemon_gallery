@@ -22,7 +22,7 @@ function PokemonCard({pokemon}) {
                     </div>
                         <div className="like-button">
                             <button className='opaque-button' onClick={onLike}>
-                                Like
+                                ♡
                             </button>
                         </div>
                 </div>
